@@ -1,4 +1,4 @@
-package domain;
+package domain.cards;
 
 public record Card(Denomination denomination, Suit suit) {
     public boolean isAce() {

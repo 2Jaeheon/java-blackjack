@@ -1,4 +1,4 @@
-package domain;
+package domain.cards;
 
 public enum Denomination {
     ACE(11),

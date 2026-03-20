@@ -1,9 +1,9 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import domain.Card;
-import domain.Denomination;
-import domain.Suit;
+import domain.cards.Card;
+import domain.cards.Denomination;
+import domain.cards.Suit;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
