@@ -2,8 +2,11 @@ package participant;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import domain.participant.BettingMoney;
+import domain.result.ProfitMoney;
+import domain.result.ProfitRate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -34,5 +37,15 @@ public class BettingMoneyTest {
     void throwException_WhenBettingUnit() {
         assertThatThrownBy(() -> new BettingMoney(150))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("배팅 금액은 수익률에 따라 실제 수익 금액을 계산할 수 있다.")
+    @Test
+    void calculateProfit() {
+        BettingMoney bettingMoney = new BettingMoney(10_000);
+
+        ProfitMoney profitMoney = bettingMoney.calculateProfit(ProfitRate.BLACKJACK_WIN);
+
+        assertEquals(profitMoney, new ProfitMoney(15_000));
     }
 }

@@ -1,6 +1,9 @@
 package domain.participant;
 
 import domain.ErrorMessage;
+import domain.deck.Deck;
+import domain.result.ProfitMoney;
+import domain.result.ProfitRate;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -15,6 +18,43 @@ public class Players {
 
     public int size() {
         return players.size();
+    }
+
+    public Player player(Name name) {
+        return findPlayer(name);
+    }
+
+    public void hit(Name name, Deck deck) {
+        findPlayer(name).hit(deck);
+    }
+
+    public void stay(Name name) {
+        findPlayer(name).stay();
+    }
+
+    public ProfitRate profitRateOf(Name name, Dealer dealer) {
+        return findPlayer(name).profitRateAgainst(dealer);
+    }
+
+    public ProfitMoney profitMoneyOf(Name name, Dealer dealer) {
+        return findPlayer(name).profitMoneyAgainst(dealer);
+    }
+
+    public ProfitMoney dealerProfitMoney(Dealer dealer) {
+        return totalProfitMoney(dealer).negate();
+    }
+
+    private Player findPlayer(Name name) {
+        return players.stream()
+                .filter(player -> player.getName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.PLAYER_NOT_FOUND));
+    }
+
+    private ProfitMoney totalProfitMoney(Dealer dealer) {
+        return players.stream()
+                .map(player -> player.profitMoneyAgainst(dealer))
+                .reduce(ProfitMoney.ZERO, ProfitMoney::plus);
     }
 
     private void validateDuplicateName(List<Player> players) {

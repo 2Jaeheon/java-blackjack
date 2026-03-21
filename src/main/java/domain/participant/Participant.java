@@ -6,16 +6,10 @@ import domain.state.Ready;
 import domain.state.State;
 
 public abstract class Participant {
-    private final Name name;
     private State state;
 
-    protected Participant(Name name, Cards cards) {
-        this.name = name;
+    protected Participant(Cards cards) {
         this.state = new Ready(cards).nextState();
-    }
-
-    public Name getName() {
-        return name;
     }
 
     public void draw(Card card) {

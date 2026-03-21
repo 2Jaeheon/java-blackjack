@@ -2,6 +2,7 @@ package participant;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import domain.participant.Name;
 import org.junit.jupiter.api.DisplayName;
@@ -27,5 +28,12 @@ public class NameTest {
     void create_Exception_WhenTooLong() {
         assertThatThrownBy(() -> new Name("abcdef"))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("이름은 출력에 사용할 은는 조사를 반환할 수 있다.")
+    @Test
+    void topicMarker() {
+        assertEquals(new Name("pobi").topicMarker(), "는");
+        assertEquals(new Name("jason").topicMarker(), "은");
     }
 }

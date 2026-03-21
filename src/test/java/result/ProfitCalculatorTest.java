@@ -24,7 +24,7 @@ public class ProfitCalculatorTest {
         Player player = createPlayer("pobi",
                 new Card(Denomination.TEN, Suit.SPADE),
                 new Card(Denomination.NINE, Suit.HEART));
-        Dealer dealer = createDealer("bank",
+        Dealer dealer = createDealer(
                 new Card(Denomination.TEN, Suit.SPADE),
                 new Card(Denomination.SEVEN, Suit.CLOVER));
 
@@ -42,7 +42,7 @@ public class ProfitCalculatorTest {
         Player player = createPlayer("pobi",
                 new Card(Denomination.TEN, Suit.SPADE),
                 new Card(Denomination.NINE, Suit.HEART));
-        Dealer dealer = createDealer("bank",
+        Dealer dealer = createDealer(
                 new Card(Denomination.TEN, Suit.SPADE),
                 new Card(Denomination.NINE, Suit.CLOVER));
 
@@ -60,7 +60,7 @@ public class ProfitCalculatorTest {
         Player player = createPlayer("pobi",
                 new Card(Denomination.ACE, Suit.SPADE),
                 new Card(Denomination.KING, Suit.HEART));
-        Dealer dealer = createDealer("bank",
+        Dealer dealer = createDealer(
                 new Card(Denomination.TEN, Suit.SPADE),
                 new Card(Denomination.NINE, Suit.CLOVER));
 
@@ -77,7 +77,7 @@ public class ProfitCalculatorTest {
         Player player = createPlayer("pobi",
                 new Card(Denomination.TEN, Suit.SPADE),
                 new Card(Denomination.NINE, Suit.HEART));
-        Dealer dealer = createDealer("bank",
+        Dealer dealer = createDealer(
                 new Card(Denomination.TEN, Suit.CLOVER),
                 new Card(Denomination.SEVEN, Suit.HEART));
 
@@ -95,7 +95,7 @@ public class ProfitCalculatorTest {
         Player player = createPlayer("pobi",
                 new Card(Denomination.TEN, Suit.SPADE),
                 new Card(Denomination.NINE, Suit.HEART));
-        Dealer dealer = createDealer("bank",
+        Dealer dealer = createDealer(
                 new Card(Denomination.TEN, Suit.CLOVER),
                 new Card(Denomination.NINE, Suit.DIAMOND));
 
@@ -115,11 +115,8 @@ public class ProfitCalculatorTest {
         );
     }
 
-    private Dealer createDealer(String name, Card firstCard, Card secondCard) {
-        return new Dealer(
-                new Name(name),
-                createCards(firstCard, secondCard)
-        );
+    private Dealer createDealer(Card firstCard, Card secondCard) {
+        return new Dealer(createCards(firstCard, secondCard));
     }
 
     private Cards createCards(Card... source) {

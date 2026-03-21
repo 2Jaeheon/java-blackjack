@@ -8,6 +8,8 @@ public final class ErrorMessage {
     public static final String INVALID_NAME = "[ERROR] 이름은 공백일 수 없습니다.";
     public static final String NAME_TOO_LONG = "[ERROR] 이름은 5자를 초과할 수 없습니다.";
     public static final String DUPLICATE_PLAYER_NAME = "[ERROR] 플레이어 이름은 중복될 수 없습니다.";
+    public static final String PLAYER_NOT_FOUND = "[ERROR] 해당 이름의 플레이어를 찾을 수 없습니다.";
+    public static final String INVALID_HIT_DECISION = "[ERROR] 카드 선택은 y 또는 n으로 입력해야 합니다.";
     public static final String INVALID_BETTING_MONEY_RANGE = "[ERROR] 배팅 금액은 100원 이상 100000원 이하여야 합니다.";
     public static final String INVALID_BETTING_MONEY_UNIT = "[ERROR] 배팅 금액은 100원 단위여야 합니다.";
     public static final String EMPTY_DECK = "[ERROR] 덱에 남은 카드가 없습니다.";

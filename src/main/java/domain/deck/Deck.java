@@ -14,8 +14,16 @@ import java.util.List;
 public class Deck {
     private final Deque<Card> cards;
 
-    public Deck() {
-        this.cards = createShuffledCards();
+    private Deck(Deque<Card> cards) {
+        this.cards = cards;
+    }
+
+    public static Deck shuffled() {
+        return new Deck(createShuffledCards());
+    }
+
+    public static Deck from(Card... cards) {
+        return new Deck(new ArrayDeque<>(Arrays.asList(cards)));
     }
 
     public Card draw() {
@@ -29,7 +37,7 @@ public class Deck {
         return cards.size();
     }
 
-    private Deque<Card> createShuffledCards() {
+    private static Deque<Card> createShuffledCards() {
         List<Card> generatedCards = new ArrayList<>();
 
         Arrays.stream(Denomination.values()).forEach(denomination -> {

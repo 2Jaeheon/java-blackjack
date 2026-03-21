@@ -8,23 +8,20 @@ import domain.cards.Card;
 import domain.cards.Cards;
 import domain.cards.Denomination;
 import domain.cards.Suit;
-import domain.participant.Name;
 import domain.participant.Participant;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class ParticipantTest {
-    @DisplayName("Participant는 이름을 가지고 초기 카드 상태를 가진다.")
+    @DisplayName("Participant는 초기 카드 상태를 가진다.")
     @Test
     void create() {
         Participant participant = new TestParticipant(
-                new Name("pobi"),
                 createCards(
                         new Card(Denomination.TEN, Suit.SPADE),
                         new Card(Denomination.NINE, Suit.HEART)
                 ));
 
-        assertEquals(participant.getName(), new Name("pobi"));
         assertEquals(participant.calculateScore(), 19);
         assertEquals(participant.cardCount(), 2);
         assertFalse(participant.isFinish());
@@ -37,7 +34,6 @@ public class ParticipantTest {
     @Test
     void draw_DelegatesToState() {
         Participant participant = new TestParticipant(
-                new Name("pobi"),
                 createCards(
                         new Card(Denomination.TEN, Suit.SPADE),
                         new Card(Denomination.FIVE, Suit.HEART)
@@ -53,7 +49,7 @@ public class ParticipantTest {
     @DisplayName("Participant는 stay 요청을 현재 상태에 위임한다.")
     @Test
     void stay_DelegatesToState() {
-        Participant participant = new TestParticipant(new Name("pobi"), createCards(
+        Participant participant = new TestParticipant(createCards(
                 new Card(Denomination.TEN, Suit.SPADE),
                 new Card(Denomination.SEVEN, Suit.HEART)
         ));
@@ -68,7 +64,6 @@ public class ParticipantTest {
     @Test
     void draw_ThenBust() {
         Participant participant = new TestParticipant(
-                new Name("pobi"),
                 createCards(
                         new Card(Denomination.TEN, Suit.SPADE),
                         new Card(Denomination.NINE, Suit.HEART)
@@ -85,7 +80,6 @@ public class ParticipantTest {
     @Test
     void initialBlackjack() {
         Participant participant = new TestParticipant(
-                new Name("pobi"),
                 createCards(
                         new Card(Denomination.ACE, Suit.SPADE),
                         new Card(Denomination.KING, Suit.HEART)
@@ -106,8 +100,8 @@ public class ParticipantTest {
     }
 
     private static class TestParticipant extends Participant {
-        private TestParticipant(Name name, Cards cards) {
-            super(name, cards);
+        private TestParticipant(Cards cards) {
+            super(cards);
         }
     }
 }
