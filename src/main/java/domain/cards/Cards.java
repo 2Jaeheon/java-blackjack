@@ -27,6 +27,10 @@ public class Cards {
         return false;
     }
 
+    public int size() {
+        return cards.size();
+    }
+
     private int adjustAceScore(int score, int aceCount) {
         int adjustedScore = score;
         int remainAce = aceCount;

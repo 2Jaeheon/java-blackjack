@@ -1,10 +1,9 @@
 package domain.state;
 
+import domain.ErrorMessage;
 import domain.cards.Cards;
 
 public class Blackjack extends Done {
-    public static final String ERROR_NOT_BLACKJACK = "[ERROR] 블랙잭 상태가 아닙니다.";
-
     public Blackjack(Cards cards) {
         super(cards);
         validateBlackjack(cards);
@@ -12,7 +11,7 @@ public class Blackjack extends Done {
 
     private void validateBlackjack(Cards cards) {
         if (!cards.isBlackjack()) {
-            throw new IllegalArgumentException(ERROR_NOT_BLACKJACK);
+            throw new IllegalArgumentException(ErrorMessage.NOT_BLACKJACK);
         }
     }
 }
