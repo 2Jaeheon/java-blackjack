@@ -9,10 +9,8 @@ import domain.cards.Denomination;
 import domain.cards.Suit;
 import domain.deck.Deck;
 import domain.participant.BettingMoney;
-import domain.participant.Dealer;
 import domain.participant.Name;
 import domain.participant.Player;
-import domain.result.ProfitRate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -52,31 +50,6 @@ public class PlayerTest {
         assertEquals(player.calculateScore(), 18);
         assertFalse(player.isFinish());
     }
-
-    @DisplayName("Player는 Dealer를 상대로 자신의 수익률을 계산할 수 있다.")
-    @Test
-    void profitRateAgainst() {
-        Player player = new Player(
-                new Name("pobi"),
-                createCards(
-                        new Card(Denomination.TEN, Suit.SPADE),
-                        new Card(Denomination.NINE, Suit.HEART)
-                ),
-                new BettingMoney(1_000)
-        );
-        Dealer dealer = new Dealer(
-                createCards(
-                        new Card(Denomination.TEN, Suit.CLOVER),
-                        new Card(Denomination.SEVEN, Suit.HEART)
-                )
-        );
-
-        player.stay();
-        dealer.stay();
-
-        assertEquals(player.profitRateAgainst(dealer), ProfitRate.WIN);
-    }
-
     private Cards createCards(Card... source) {
         Cards cards = new Cards();
         for (Card card : source) {

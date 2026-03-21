@@ -10,8 +10,10 @@ import domain.participant.BettingMoney;
 import domain.participant.Dealer;
 import domain.participant.Name;
 import domain.participant.Player;
+import domain.result.ProfitMoney;
 import domain.result.ProfitCalculator;
 import domain.result.ProfitRate;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -105,6 +107,48 @@ public class ProfitCalculatorTest {
         ProfitRate profitRate = profitCalculator.calculate(player, dealer);
 
         assertEquals(profitRate, ProfitRate.DRAW);
+    }
+
+    @DisplayName("계산기는 플레이어의 실제 수익 금액을 계산한다.")
+    @Test
+    void calculateProfitMoney() {
+        Player player = createPlayer("pobi",
+                new Card(Denomination.ACE, Suit.SPADE),
+                new Card(Denomination.KING, Suit.HEART));
+        Dealer dealer = createDealer(
+                new Card(Denomination.TEN, Suit.SPADE),
+                new Card(Denomination.NINE, Suit.CLOVER));
+
+        dealer.stay();
+
+        ProfitMoney profitMoney = profitCalculator.calculateProfitMoney(player, dealer);
+
+        assertEquals(profitMoney, new ProfitMoney(1_500));
+    }
+
+    @DisplayName("계산기는 모든 플레이어 결과를 합산해 딜러 수익금을 계산한다.")
+    @Test
+    void calculateDealerProfitMoney() {
+        Player winningPlayer = createPlayer("pobi",
+                new Card(Denomination.TEN, Suit.SPADE),
+                new Card(Denomination.NINE, Suit.HEART));
+        Player losingPlayer = createPlayer("jason",
+                new Card(Denomination.TEN, Suit.CLOVER),
+                new Card(Denomination.SIX, Suit.HEART));
+        Dealer dealer = createDealer(
+                new Card(Denomination.TEN, Suit.DIAMOND),
+                new Card(Denomination.SEVEN, Suit.CLOVER));
+
+        winningPlayer.stay();
+        losingPlayer.stay();
+        dealer.stay();
+
+        ProfitMoney dealerProfitMoney = profitCalculator.calculateDealerProfitMoney(
+                List.of(winningPlayer, losingPlayer),
+                dealer
+        );
+
+        assertEquals(dealerProfitMoney, ProfitMoney.ZERO);
     }
 
     private Player createPlayer(String name, Card firstCard, Card secondCard) {

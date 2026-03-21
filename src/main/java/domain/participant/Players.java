@@ -3,6 +3,7 @@ package domain.participant;
 import domain.ErrorMessage;
 import domain.deck.Deck;
 import domain.result.ProfitMoney;
+import domain.result.ProfitCalculator;
 import domain.result.ProfitRate;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 
 public class Players {
     private final List<Player> players;
+    private final ProfitCalculator profitCalculator = new ProfitCalculator();
 
     public Players(List<Player> players) {
         validateDuplicateName(players);
@@ -33,28 +35,15 @@ public class Players {
     }
 
     public ProfitRate profitRateOf(Name name, Dealer dealer) {
-        return findPlayer(name).profitRateAgainst(dealer);
+        return profitCalculator.calculate(findPlayer(name), dealer);
     }
 
     public ProfitMoney profitMoneyOf(Name name, Dealer dealer) {
-        return findPlayer(name).profitMoneyAgainst(dealer);
+        return profitCalculator.calculateProfitMoney(findPlayer(name), dealer);
     }
 
     public ProfitMoney dealerProfitMoney(Dealer dealer) {
-        return totalProfitMoney(dealer).negate();
-    }
-
-    private Player findPlayer(Name name) {
-        return players.stream()
-                .filter(player -> player.getName().equals(name))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.PLAYER_NOT_FOUND));
-    }
-
-    private ProfitMoney totalProfitMoney(Dealer dealer) {
-        return players.stream()
-                .map(player -> player.profitMoneyAgainst(dealer))
-                .reduce(ProfitMoney.ZERO, ProfitMoney::plus);
+        return profitCalculator.calculateDealerProfitMoney(players, dealer);
     }
 
     private void validateDuplicateName(List<Player> players) {
@@ -65,5 +54,12 @@ public class Players {
         if (names.size() != players.size()) {
             throw new IllegalArgumentException(ErrorMessage.DUPLICATE_PLAYER_NAME);
         }
+    }
+
+    private Player findPlayer(Name name) {
+        return players.stream()
+                .filter(player -> player.getName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.PLAYER_NOT_FOUND));
     }
 }
