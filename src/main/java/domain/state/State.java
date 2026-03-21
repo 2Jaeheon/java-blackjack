@@ -10,5 +10,7 @@ public interface State {
 
     boolean isFinish();
 
+    int calculateScore();
+
     Cards getCards();
 }

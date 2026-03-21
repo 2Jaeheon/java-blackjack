@@ -13,4 +13,9 @@ public abstract class Started implements State {
     public Cards getCards() {
         return cards;
     }
+
+    @Override
+    public int calculateScore() {
+        return cards.calculateScore();
+    }
 }
