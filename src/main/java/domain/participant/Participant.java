@@ -30,11 +30,27 @@ public abstract class Participant {
         return state.isFinish();
     }
 
+    public boolean canDraw() {
+        return state.canDraw();
+    }
+
+    public boolean isBlackjack() {
+        return state.isBlackjack();
+    }
+
+    public boolean isBust() {
+        return state.isBust();
+    }
+
     public Cards getCards() {
         return state.getCards();
     }
 
     public int calculateScore() {
         return state.calculateScore();
+    }
+
+    public int cardCount() {
+        return state.cardCount();
     }
 }

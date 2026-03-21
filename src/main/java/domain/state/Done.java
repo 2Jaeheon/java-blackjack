@@ -11,6 +11,11 @@ public abstract class Done extends Started {
     }
 
     @Override
+    public boolean canDraw() {
+        return false;
+    }
+
+    @Override
     public boolean isFinish() {
         return true;
     }

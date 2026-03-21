@@ -21,6 +21,11 @@ public class Ready extends Started {
     }
 
     @Override
+    public boolean canDraw() {
+        return false;
+    }
+
+    @Override
     public State draw(Card card) {
         throw new IllegalStateException(ErrorMessage.READY_STATE_TRANSITION_ONLY);
     }

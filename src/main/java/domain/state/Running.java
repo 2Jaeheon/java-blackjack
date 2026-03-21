@@ -9,6 +9,11 @@ public abstract class Running extends Started {
     }
 
     @Override
+    public boolean canDraw() {
+        return true;
+    }
+
+    @Override
     public boolean isFinish() {
         return false;
     }

@@ -26,7 +26,11 @@ public class ParticipantTest {
 
         assertEquals(participant.getName(), new Name("pobi"));
         assertEquals(participant.calculateScore(), 19);
+        assertEquals(participant.cardCount(), 2);
         assertFalse(participant.isFinish());
+        assertFalse(participant.isBlackjack());
+        assertFalse(participant.isBust());
+        assertTrue(participant.canDraw());
     }
 
     @DisplayName("Participant는 draw 요청을 현재 상태에 위임한다.")
@@ -42,7 +46,7 @@ public class ParticipantTest {
         participant.draw(new Card(Denomination.THREE, Suit.CLOVER));
 
         assertEquals(participant.calculateScore(), 18);
-        assertEquals(participant.getCards().size(), 3);
+        assertEquals(participant.cardCount(), 3);
         assertFalse(participant.isFinish());
     }
 
@@ -73,6 +77,7 @@ public class ParticipantTest {
         participant.draw(new Card(Denomination.THREE, Suit.CLOVER));
 
         assertTrue(participant.isFinish());
+        assertTrue(participant.isBust());
         assertEquals(participant.calculateScore(), 22);
     }
 
@@ -87,6 +92,8 @@ public class ParticipantTest {
                 ));
 
         assertTrue(participant.isFinish());
+        assertTrue(participant.isBlackjack());
+        assertFalse(participant.canDraw());
         assertEquals(participant.calculateScore(), 21);
     }
 

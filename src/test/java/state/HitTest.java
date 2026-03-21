@@ -37,7 +37,7 @@ public class HitTest {
         State nextState = hit.draw(new Card(Denomination.THREE, Suit.CLOVER));
 
         assertThat(nextState).isInstanceOf(Hit.class);
-        assertThat(nextState.getCards().calculateScore()).isEqualTo(18);
+        assertThat(nextState.calculateScore()).isEqualTo(18);
     }
 
     @DisplayName("Hit 상태에서 카드를 더 뽑아 21이 되면 Stay 상태로 전이한다.")
@@ -51,7 +51,7 @@ public class HitTest {
         State nextState = hit.draw(new Card(Denomination.SIX, Suit.CLOVER));
 
         assertThat(nextState).isInstanceOf(Stay.class);
-        assertThat(nextState.getCards().calculateScore()).isEqualTo(21);
+        assertThat(nextState.calculateScore()).isEqualTo(21);
     }
 
     @DisplayName("Hit 상태에서 카드를 더 뽑아 21을 초과하면 Bust 상태로 전이한다.")
@@ -65,7 +65,7 @@ public class HitTest {
         State nextState = hit.draw(new Card(Denomination.THREE, Suit.CLOVER));
 
         assertThat(nextState).isInstanceOf(Bust.class);
-        assertThat(nextState.getCards().calculateScore()).isEqualTo(22);
+        assertThat(nextState.calculateScore()).isEqualTo(22);
     }
 
     @DisplayName("Hit 상태에서 stay를 선택하면 Stay 상태로 전이한다.")
@@ -79,7 +79,7 @@ public class HitTest {
         State nextState = hit.stay();
 
         assertThat(nextState).isInstanceOf(Stay.class);
-        assertThat(nextState.getCards().calculateScore()).isEqualTo(17);
+        assertThat(nextState.calculateScore()).isEqualTo(17);
     }
 
     private Cards createCards(Card... source) {

@@ -10,6 +10,7 @@ public final class ErrorMessage {
     public static final String DUPLICATE_PLAYER_NAME = "[ERROR] 플레이어 이름은 중복될 수 없습니다.";
     public static final String INVALID_BETTING_MONEY_RANGE = "[ERROR] 배팅 금액은 100원 이상 100000원 이하여야 합니다.";
     public static final String INVALID_BETTING_MONEY_UNIT = "[ERROR] 배팅 금액은 100원 단위여야 합니다.";
+    public static final String EMPTY_DECK = "[ERROR] 덱에 남은 카드가 없습니다.";
 
     private ErrorMessage() {
     }

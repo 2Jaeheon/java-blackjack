@@ -15,7 +15,22 @@ public abstract class Started implements State {
     }
 
     @Override
+    public boolean isBlackjack() {
+        return cards.isBlackjack();
+    }
+
+    @Override
+    public boolean isBust() {
+        return calculateScore() > Cards.BLACKJACK;
+    }
+
+    @Override
     public int calculateScore() {
         return cards.calculateScore();
+    }
+
+    @Override
+    public int cardCount() {
+        return cards.size();
     }
 }

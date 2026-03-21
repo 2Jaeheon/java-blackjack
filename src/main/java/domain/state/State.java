@@ -8,9 +8,17 @@ public interface State {
 
     State stay();
 
+    boolean canDraw();
+
     boolean isFinish();
 
+    boolean isBlackjack();
+
+    boolean isBust();
+
     int calculateScore();
+
+    int cardCount();
 
     Cards getCards();
 }
