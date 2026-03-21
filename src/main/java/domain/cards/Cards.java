@@ -3,8 +3,8 @@ package domain.cards;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Hand {
-    public static final int BLACKJACK_MAX_SCORE = 21;
+public class Cards {
+    public static final int BLACKJACK = 21;
     public static final int ACE_DISCOUNT_VALUE = 10;
     private final List<Card> cards = new LinkedList<>();
 
@@ -19,11 +19,19 @@ public class Hand {
         return adjustAceScore(score, aceCount);
     }
 
+    public boolean isBlackjack() {
+        if (cards.size() == 2 && calculateScore() == BLACKJACK) {
+            return true;
+        }
+
+        return false;
+    }
+
     private int adjustAceScore(int score, int aceCount) {
         int adjustedScore = score;
         int remainAce = aceCount;
 
-        while (adjustedScore > BLACKJACK_MAX_SCORE && remainAce > 0) {
+        while (adjustedScore > BLACKJACK && remainAce > 0) {
             adjustedScore -= ACE_DISCOUNT_VALUE;
             remainAce--;
         }
